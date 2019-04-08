@@ -40,9 +40,17 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Transform cameraMain;
     [SerializeField] private bool HoldKey;
 
+    [Header("Switch Cameras")]
+    [SerializeField] private Camera playerCam;
+    [SerializeField] private Camera securityCam;
+    [SerializeField] private Camera switchCam;
+    [SerializeField] private KeyCode switchCamKey;
+
     // THIS IS NEW. You may want to seralize this if the environment can enforce crouching. 
     private bool isCrouching;
-
+    private float startTime;
+    public float speed = 1.0F;
+    
     // A note here, the way I've got it crouch mode is only set when awake is called:
     // If you want it changed from a menu during gameplay, you'll either need to move it
     // set it externally, might be a pain. If you need to do that, buzz me. Should be able
@@ -56,19 +64,67 @@ public class PlayerMove : MonoBehaviour
     {
         charController = GetComponent<CharacterController>();
         if (HoldKey) // Hold mode
-        {
             setCrouch = CrouchInputHold;
-        }
         else // Toggle mode
-        {
             setCrouch = CrouchInputToggle;
-        }
+
+        playerCam.enabled = true;
+        securityCam.enabled = false;
 
     }
 
     private void Update()
     {
         PlayerMovement();
+
+
+        if (Input.GetKeyDown(switchCamKey)) {
+            if(playerCam.enabled){
+                
+                camChange();
+                
+            }else{
+                camChange_B();
+            }
+            //switchCam.enabled = !switchCam.enabled;
+        }
+    }
+
+    private void camChange(){
+        playerCam.enabled = false;
+
+        switchCam.transform.position = playerCam.transform.position;
+        Vector3 pos = new Vector3();
+        pos = securityCam.transform.position;
+
+        switchCam.enabled = true;
+        switchCam.transform.position = Vector3.Lerp(switchCam.transform.position, pos, Time.deltaTime);
+        switchCam.enabled = false;
+
+        securityCam.enabled = true;
+    }
+    private void camChange_B(){
+        securityCam.enabled = false;
+
+        switchCam.transform.position = securityCam.transform.position;
+        Vector3 pos = new Vector3();
+        pos = playerCam.transform.position;
+
+        
+        switchCam.enabled = true;
+
+        float journeyLength;
+        journeyLength = Vector3.Distance(securityCam.transform.position, pos);
+        // Distance moved = time * speed.
+        float distCovered = (Time.time - startTime) * speed;
+
+        // Fraction of journey completed = current distance divided by total distance.
+        float fracJourney = distCovered / journeyLength;
+
+
+        switchCam.transform.position = Vector3.Lerp(switchCam.transform.position, pos, fracJourney);
+        switchCam.enabled = false;
+        playerCam.enabled = true;
     }
 
     private void PlayerMovement()
@@ -118,21 +174,21 @@ public class PlayerMove : MonoBehaviour
     {
         if (isCrouching) // Transform to crouching height
         {
-            //cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(
-            //    cameraMain.transform.localPosition.y,
-            //    crouchHeight,
-            //    Time.deltaTime * crouchSpeedMult), 0);
+            cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(
+                cameraMain.transform.localPosition.y,
+                crouchHeight,
+                Time.deltaTime * crouchSpeedMult), 0);
 
-            charController.height = Mathf.Lerp(charController.height, crouchHeight, Time.deltaTime * crouchSpeedMult);
+            //charController.height = Mathf.Lerp(charController.height, crouchHeight, Time.deltaTime * crouchSpeedMult);
         }
         else // Transform to standing height
         {
-            //cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(
-            //    cameraMain.transform.localPosition.y,
-            //    controllerHeight,
-            //    Time.deltaTime * crouchSpeedMult), 0);
+            cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(
+                cameraMain.transform.localPosition.y,
+                controllerHeight,
+                Time.deltaTime * crouchSpeedMult), 0);
 
-            charController.height = Mathf.Lerp(charController.height, controllerHeight, Time.deltaTime * crouchSpeedMult);
+            //charController.height = Mathf.Lerp(charController.height, controllerHeight, Time.deltaTime * crouchSpeedMult);
         }
     }
 
