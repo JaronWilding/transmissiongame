@@ -43,11 +43,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Camera cameraMain;
     [SerializeField] private bool HoldKey;
 
-    [SerializeField] private string Speed;
-
     private bool isCrouching;
     private bool isRunning;
-    private Vector3 lastSpeed;
 
     private delegate void CrouchModeDelegate();
     private CrouchModeDelegate setCrouch;
@@ -61,30 +58,11 @@ public class PlayerMove : MonoBehaviour
             setCrouch = CrouchInputHold;
         else // Toggle mode
             setCrouch = CrouchInputToggle;
-        lastSpeed = charController.transform.position;
-
     }
 
     private void Update()
     {
-
         PlayerMovement();
-
-        float charSpeed = (charController.transform.position - lastSpeed).magnitude;
-       
-
-
-        //float spd = charController.velocity.magnitude;
-        //spd = scale(0f, 9f, 6f, 9f, spd);
-        Speed = charSpeed.ToString() + "    " + scale(0f, 11f, 1f, 1.2f, charSpeed).ToString();
-        cameraMain.fieldOfView = 60f * scale(0f, 12f, 1f, 1.2f, charSpeed);
-
-        
-    }
-
-    private void LastUpdate()
-    {
-        lastSpeed = charController.transform.position;
     }
 
     private void PlayerMovement()
@@ -98,17 +76,18 @@ public class PlayerMove : MonoBehaviour
         Vector3 forwardMovement = transform.forward * vertInput;
         Vector3 rightMovement = transform.right * horizInput;
 
+        if ((vertInput != 0 || horizInput != 0) && onSlope())
+            charController.Move(Vector3.down * charController.height / 2 * slopeForce * Time.deltaTime);
+
         //SimpleMove applies Time.DeltaTime under the hood.
         //Clamping the magnitude and multiplying it by the move speed. Means moving diagonally does not make the player faster.
         //We multiply the magnitude otherwise the clamp would clamp our speed.
         charController.SimpleMove(Vector3.ClampMagnitude(forwardMovement + rightMovement, 1.0f) * movementSpeed);
 
-        if ((vertInput != 0 || horizInput != 0) && onSlope())
-            charController.Move(Vector3.down * charController.height / 2 * slopeForce * Time.deltaTime);
-
         setCrouch();
         SetMovementSpeed();
         JumpInput();
+        FOV();
     }
 
 
@@ -120,7 +99,6 @@ public class PlayerMove : MonoBehaviour
                 isCrouching = false;
             SetLocalCameraY();
             movementSpeed = Mathf.Lerp(movementSpeed, runSpeed, Time.deltaTime * runBuildUpSpeed);
-            
         }
         else
             if (isCrouching)
@@ -132,12 +110,19 @@ public class PlayerMove : MonoBehaviour
 
     private void FOV()
     {
-        float speed = charController.velocity.magnitude;
+        Vector3 charSpeedVec = charController.velocity;
+        charSpeedVec.y = 0.0f;
+        float charSpeed = charSpeedVec.magnitude;
 
-        cameraMain.fieldOfView = Mathf.Lerp(cameraMain.fieldOfView, 90.0f, Time.deltaTime* 6f);
+        if (charSpeed <= 6)
+            cameraMain.fieldOfView = 60.0f;
+        else if (charSpeed >= 9)
+            cameraMain.fieldOfView = 80.0f;
+        else
+            cameraMain.fieldOfView = 60.0f + (20.0f / 3.0f * (charSpeed - 6.0f));
     }
 
-
+    #region CrouchEvents
     /// Modifies the local camera Y position.
     private void SetLocalCameraY()
     {
@@ -170,16 +155,7 @@ public class PlayerMove : MonoBehaviour
         SetLocalCameraY();
     }
 
-    public float scale(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
-    {
-
-        float OldRange = (OldMax - OldMin);
-        float NewRange = (NewMax - NewMin);
-        float NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin;
-
-        return (NewValue);
-    }
-
+    #endregion
 
     #region JumpEvents
     //gets the jump input
