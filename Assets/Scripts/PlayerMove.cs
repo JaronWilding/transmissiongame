@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     //Run, walk, slow-walk variables.
     [Header("Movement Speeds")]
     [SerializeField] private float walkSpeed;
+    [SerializeField] private float crouchSpeed;
     [SerializeField] private float runSpeed;
     [SerializeField] private float runBuildUpSpeed;
     [SerializeField] private KeyCode runKey;
@@ -37,94 +40,51 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float crouchHeight;
     [SerializeField] private float crouchSpeedMult;
     [SerializeField] private KeyCode crouchKey;
-    [SerializeField] private Transform cameraMain;
+    [SerializeField] private Camera cameraMain;
     [SerializeField] private bool HoldKey;
 
-    [Header("Switch Cameras")]
-    [SerializeField] private Camera playerCam;
-    [SerializeField] private Camera securityCam;
-    [SerializeField] private Camera switchCam;
-    [SerializeField] private KeyCode switchCamKey;
+    [SerializeField] private string Speed;
 
-    // THIS IS NEW. You may want to seralize this if the environment can enforce crouching. 
     private bool isCrouching;
-    private float startTime;
-    public float speed = 1.0F;
-    
-    // A note here, the way I've got it crouch mode is only set when awake is called:
-    // If you want it changed from a menu during gameplay, you'll either need to move it
-    // set it externally, might be a pain. If you need to do that, buzz me. Should be able
-    // to use a const function (compile time fn) with both delegates already made and just have
-    // the menu change them.
+    private bool isRunning;
+    private Vector3 lastSpeed;
+
     private delegate void CrouchModeDelegate();
     private CrouchModeDelegate setCrouch;
 
-
+    
     private void Awake()
     {
         charController = GetComponent<CharacterController>();
+
         if (HoldKey) // Hold mode
             setCrouch = CrouchInputHold;
         else // Toggle mode
             setCrouch = CrouchInputToggle;
-
-        playerCam.enabled = true;
-        securityCam.enabled = false;
+        lastSpeed = charController.transform.position;
 
     }
 
     private void Update()
     {
+
         PlayerMovement();
 
+        float charSpeed = (charController.transform.position - lastSpeed).magnitude;
+       
 
-        if (Input.GetKeyDown(switchCamKey)) {
-            if(playerCam.enabled){
-                
-                camChange();
-                
-            }else{
-                camChange_B();
-            }
-            //switchCam.enabled = !switchCam.enabled;
-        }
-    }
 
-    private void camChange(){
-        playerCam.enabled = false;
-
-        switchCam.transform.position = playerCam.transform.position;
-        Vector3 pos = new Vector3();
-        pos = securityCam.transform.position;
-
-        switchCam.enabled = true;
-        switchCam.transform.position = Vector3.Lerp(switchCam.transform.position, pos, Time.deltaTime);
-        switchCam.enabled = false;
-
-        securityCam.enabled = true;
-    }
-    private void camChange_B(){
-        securityCam.enabled = false;
-
-        switchCam.transform.position = securityCam.transform.position;
-        Vector3 pos = new Vector3();
-        pos = playerCam.transform.position;
+        //float spd = charController.velocity.magnitude;
+        //spd = scale(0f, 9f, 6f, 9f, spd);
+        Speed = charSpeed.ToString() + "    " + scale(0f, 11f, 1f, 1.2f, charSpeed).ToString();
+        cameraMain.fieldOfView = 60f * scale(0f, 12f, 1f, 1.2f, charSpeed);
 
         
-        switchCam.enabled = true;
+    }
 
-        float journeyLength;
-        journeyLength = Vector3.Distance(securityCam.transform.position, pos);
-        // Distance moved = time * speed.
-        float distCovered = (Time.time - startTime) * speed;
-
-        // Fraction of journey completed = current distance divided by total distance.
-        float fracJourney = distCovered / journeyLength;
-
-
-        switchCam.transform.position = Vector3.Lerp(switchCam.transform.position, pos, fracJourney);
-        switchCam.enabled = false;
-        playerCam.enabled = true;
+    private void LastUpdate()
+    {
+        lastSpeed = charController.transform.position;
     }
 
     private void PlayerMovement()
@@ -134,11 +94,9 @@ public class PlayerMove : MonoBehaviour
         float horizInput = Input.GetAxis(horizontalInputName);
         float vertInput = Input.GetAxis(verticalInputName); 
         
-     
         //Create a Vector3 for all axis.
         Vector3 forwardMovement = transform.forward * vertInput;
         Vector3 rightMovement = transform.right * horizInput;
-
 
         //SimpleMove applies Time.DeltaTime under the hood.
         //Clamping the magnitude and multiplying it by the move speed. Means moving diagonally does not make the player faster.
@@ -149,88 +107,89 @@ public class PlayerMove : MonoBehaviour
             charController.Move(Vector3.down * charController.height / 2 * slopeForce * Time.deltaTime);
 
         setCrouch();
-        SetLocalCameraY();
         SetMovementSpeed();
         JumpInput();
-        
-
     }
 
 
     //Sprinting
     private void SetMovementSpeed()
     {
-        if (Input.GetKey(runKey))
+        if (Input.GetKey(runKey)) {
+            if (isCrouching)
+                isCrouching = false;
+            SetLocalCameraY();
             movementSpeed = Mathf.Lerp(movementSpeed, runSpeed, Time.deltaTime * runBuildUpSpeed);
+            
+        }
         else
-            movementSpeed = Mathf.Lerp(movementSpeed, walkSpeed, Time.deltaTime * runBuildUpSpeed);
+            if (isCrouching)
+                movementSpeed = Mathf.Lerp(movementSpeed, crouchSpeed, Time.deltaTime * runBuildUpSpeed);
+            else
+                movementSpeed = Mathf.Lerp(movementSpeed, walkSpeed, Time.deltaTime * runBuildUpSpeed);
+                
+    }
+
+    private void FOV()
+    {
+        float speed = charController.velocity.magnitude;
+
+        cameraMain.fieldOfView = Mathf.Lerp(cameraMain.fieldOfView, 90.0f, Time.deltaTime* 6f);
     }
 
 
-    /// <summary>
     /// Modifies the local camera Y position.
-    /// </summary>
     private void SetLocalCameraY()
     {
         if (isCrouching) // Transform to crouching height
-        {
-            cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(
-                cameraMain.transform.localPosition.y,
-                crouchHeight,
-                Time.deltaTime * crouchSpeedMult), 0);
-
-            //charController.height = Mathf.Lerp(charController.height, crouchHeight, Time.deltaTime * crouchSpeedMult);
-        }
+            cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(cameraMain.transform.localPosition.y, crouchHeight, Time.deltaTime * crouchSpeedMult), 0);
         else // Transform to standing height
-        {
-            cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(
-                cameraMain.transform.localPosition.y,
-                controllerHeight,
-                Time.deltaTime * crouchSpeedMult), 0);
-
-            //charController.height = Mathf.Lerp(charController.height, controllerHeight, Time.deltaTime * crouchSpeedMult);
-        }
+            cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(cameraMain.transform.localPosition.y, controllerHeight, Time.deltaTime * crouchSpeedMult), 0);
     }
 
-    /// <summary>
     /// Sets the crouching modifier when Toggle-Crouch mode is selected.
-    /// </summary>
     private void CrouchInputToggle()
     {
         // Invert crouch state on key press
         if (Input.GetKeyDown(crouchKey))
-        {
             isCrouching = !isCrouching;
-        }
+
+        SetLocalCameraY();
     }
 
-    /// <summary>
     /// Sets the crouching modifier when Hold-Crouch mode is selected.
-    /// </summary>
     private void CrouchInputHold()
     {
         // Crouching -> Standing
         if (isCrouching && !Input.GetKey(crouchKey))
-        {
             isCrouching = false;
-        }
-
         // Standing -> Crouching
         else if (!isCrouching && Input.GetKey(crouchKey) && !Input.GetKey(runKey))
-        {
             isCrouching = true;
-        }
-        
+
+        SetLocalCameraY();
+    }
+
+    public float scale(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
+    {
+
+        float OldRange = (OldMax - OldMin);
+        float NewRange = (NewMax - NewMin);
+        float NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin;
+
+        return (NewValue);
     }
 
 
-
+    #region JumpEvents
     //gets the jump input
     private void JumpInput()
     {
         if(Input.GetKeyDown(jumpKey) && !isJumping)
         {
             isJumping = true;
+            isCrouching = false;
+            SetLocalCameraY();
             StartCoroutine(JumpEvent());
         }
     }
@@ -270,5 +229,7 @@ public class PlayerMove : MonoBehaviour
                 return true;
         return false;
     }
+
+#endregion Jump Events
 
 }
