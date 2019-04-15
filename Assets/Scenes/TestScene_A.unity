@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.42835364, g: 0.43658334, b: 0.40475368, a: 1}
+  m_IndirectSpecularColor: {r: 0.42835307, g: 0.43658298, b: 0.4047535, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -404,7 +404,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 2000
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -625,6 +625,7 @@ MonoBehaviour:
   crouchKey: 99
   cameraMain: {fileID: 1735064138}
   HoldKey: 0
+  fovSpeed: 0
 --- !u!1 &2127251397 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: f57127cfcc32ab9419af130b6a9211fb,
