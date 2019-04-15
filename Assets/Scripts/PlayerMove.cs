@@ -55,14 +55,20 @@ public class PlayerMove : MonoBehaviour
         charController = GetComponent<CharacterController>();
 
         if (HoldKey) // Hold mode
+        {
             setCrouch = CrouchInputHold;
+        }
         else // Toggle mode
+        {
             setCrouch = CrouchInputToggle;
+        }
+
     }
 
     private void Update()
     {
         PlayerMovement();
+        FOV();
     }
 
     private void PlayerMovement()
@@ -77,7 +83,9 @@ public class PlayerMove : MonoBehaviour
         Vector3 rightMovement = transform.right * horizInput;
 
         if ((vertInput != 0 || horizInput != 0) && onSlope())
+        {
             charController.Move(Vector3.down * charController.height / 2 * slopeForce * Time.deltaTime);
+        }
 
         //SimpleMove applies Time.DeltaTime under the hood.
         //Clamping the magnitude and multiplying it by the move speed. Means moving diagonally does not make the player faster.
@@ -87,24 +95,30 @@ public class PlayerMove : MonoBehaviour
         setCrouch();
         SetMovementSpeed();
         JumpInput();
-        FOV();
     }
 
 
     //Sprinting
     private void SetMovementSpeed()
     {
-        if (Input.GetKey(runKey)) {
+        if (Input.GetKey(runKey))
+        {
             if (isCrouching)
+            {
                 isCrouching = false;
+            }
             SetLocalCameraY();
             movementSpeed = Mathf.Lerp(movementSpeed, runSpeed, Time.deltaTime * runBuildUpSpeed);
         }
         else
             if (isCrouching)
-                movementSpeed = Mathf.Lerp(movementSpeed, crouchSpeed, Time.deltaTime * runBuildUpSpeed);
-            else
-                movementSpeed = Mathf.Lerp(movementSpeed, walkSpeed, Time.deltaTime * runBuildUpSpeed);
+        {
+            movementSpeed = Mathf.Lerp(movementSpeed, crouchSpeed, Time.deltaTime * runBuildUpSpeed);
+        }
+        else
+        {
+            movementSpeed = Mathf.Lerp(movementSpeed, walkSpeed, Time.deltaTime * runBuildUpSpeed);
+        }
                 
     }
 
@@ -115,11 +129,17 @@ public class PlayerMove : MonoBehaviour
         float charSpeed = charSpeedVec.magnitude;
 
         if (charSpeed <= 6)
+        {
             cameraMain.fieldOfView = 60.0f;
+        }
         else if (charSpeed >= 9)
+        {
             cameraMain.fieldOfView = 80.0f;
+        }
         else
+        {
             cameraMain.fieldOfView = 60.0f + (20.0f / 3.0f * (charSpeed - 6.0f));
+        }
     }
 
     #region CrouchEvents
@@ -127,9 +147,14 @@ public class PlayerMove : MonoBehaviour
     private void SetLocalCameraY()
     {
         if (isCrouching) // Transform to crouching height
+        {
             cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(cameraMain.transform.localPosition.y, crouchHeight, Time.deltaTime * crouchSpeedMult), 0);
+        }
+
         else // Transform to standing height
+        {
             cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(cameraMain.transform.localPosition.y, controllerHeight, Time.deltaTime * crouchSpeedMult), 0);
+        }
     }
 
     /// Sets the crouching modifier when Toggle-Crouch mode is selected.
@@ -137,7 +162,9 @@ public class PlayerMove : MonoBehaviour
     {
         // Invert crouch state on key press
         if (Input.GetKeyDown(crouchKey))
+        {
             isCrouching = !isCrouching;
+        }
 
         SetLocalCameraY();
     }
@@ -147,10 +174,14 @@ public class PlayerMove : MonoBehaviour
     {
         // Crouching -> Standing
         if (isCrouching && !Input.GetKey(crouchKey))
+        {
             isCrouching = false;
+        }
         // Standing -> Crouching
         else if (!isCrouching && Input.GetKey(crouchKey) && !Input.GetKey(runKey))
+        {
             isCrouching = true;
+        }
 
         SetLocalCameraY();
     }
@@ -196,13 +227,19 @@ public class PlayerMove : MonoBehaviour
     private bool onSlope()
     {
         if (isJumping)
+        {
             return false;
+        }
 
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit, charController.height / 2 * slopeForceRaylength))
+        {
             if (hit.normal != Vector3.up)
+            {
                 return true;
+            }
+        }
         return false;
     }
 
