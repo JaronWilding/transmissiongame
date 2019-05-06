@@ -128,13 +128,12 @@ public class PlayerMove : MonoBehaviour
 
     private void FOV()
     {
-        //Vector3 charSpeedVec = (charController.transform.position - lastVector) * Time.deltaTime;//charController.velocity;
-        Vector3 charSpeedVec = charController.velocity;
+        Vector3 charSpeedVec = (charController.transform.position - lastVector) * Time.deltaTime;//charController.velocity;
         charSpeedVec.y = 0.0f;
-        float charSpeed = charSpeedVec.magnitude;
+        float charSpeed = charSpeedVec.magnitude * fovSpeed;
 
-        //cameraMain.fieldOfView = 60.0f * scale(0.0f, 10.0f, 1.0f, 1.2f, charSpeed);
-
+        cameraMain.fieldOfView = 60.0f * scale(0.0f, 10.0f, 1.0f, 1.2f, charSpeed);
+/* 
         if (charSpeed <= 6)
         {
             cameraMain.fieldOfView = 60.0f;
@@ -148,7 +147,7 @@ public class PlayerMove : MonoBehaviour
             cameraMain.fieldOfView = 60.0f + (20.0f / 3.0f * (charSpeed - 6.0f));
         }
 
-
+        */
     }
 
     public float scale(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue){
