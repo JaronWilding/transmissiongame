@@ -1,80 +1,14 @@
 fileFormatVersion: 2
-guid: 9e07529c54a84774aa833f094ac3e25d
+guid: e0d6240162a8ed2408598a425bbdcf72
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Art_in_room
-    100002: Bed
-    100004: Bed_Enclosure
-    100006: Bed_Low_poly:BedBase
-    100008: Bed_Low_poly:BedMattress
-    100010: Bed_Low_poly:BedPillow
-    100012: Bed_Low_poly:BlanketBed
-    100014: //RootNode
-    100016: Door1
-    100018: Door_lock_base
-    100020: Door_lock_low_poly
-    100022: Lever_holder
-    100024: Num_pad
-    100026: Small_shelf
-    100028: Small_Shelf_2
-    400000: Art_in_room
-    400002: Bed
-    400004: Bed_Enclosure
-    400006: Bed_Low_poly:BedBase
-    400008: Bed_Low_poly:BedMattress
-    400010: Bed_Low_poly:BedPillow
-    400012: Bed_Low_poly:BlanketBed
-    400014: //RootNode
-    400016: Door1
-    400018: Door_lock_base
-    400020: Door_lock_low_poly
-    400022: Lever_holder
-    400024: Num_pad
-    400026: Small_shelf
-    400028: Small_Shelf_2
+    100000: //RootNode
+    400000: //RootNode
     2100000: lambert1
-    2100002: lambert2
-    2100004: blinn1
-    2100006: lambert3
-    2300000: Art_in_room
-    2300002: Bed_Enclosure
-    2300004: Bed_Low_poly:BedBase
-    2300006: Bed_Low_poly:BedMattress
-    2300008: Bed_Low_poly:BedPillow
-    2300010: Bed_Low_poly:BlanketBed
-    2300012: Door1
-    2300014: Door_lock_base
-    2300016: Lever_holder
-    2300018: Num_pad
-    2300020: Small_shelf
-    2300022: Small_Shelf_2
-    3300000: Art_in_room
-    3300002: Bed_Enclosure
-    3300004: Bed_Low_poly:BedBase
-    3300006: Bed_Low_poly:BedMattress
-    3300008: Bed_Low_poly:BedPillow
-    3300010: Bed_Low_poly:BlanketBed
-    3300012: Door1
-    3300014: Door_lock_base
-    3300016: Lever_holder
-    3300018: Num_pad
-    3300020: Small_shelf
-    3300022: Small_Shelf_2
-    4300000: Art_in_room
-    4300002: Small_Shelf_2
-    4300004: Small_shelf
-    4300006: Door_lock_base
-    4300008: Num_pad
-    4300010: Bed_Low_poly:BlanketBed
-    4300012: Bed_Low_poly:BedBase
-    4300014: Bed_Low_poly:BedMattress
-    4300016: Bed_Low_poly:BedPillow
-    4300018: Bed_Enclosure
-    4300020: Door1
-    4300022: Lever_holder
-    7400000: Take 001
-    9500000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: pCube1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -106,7 +40,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.26
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -127,8 +61,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.0028
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -155,7 +89,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

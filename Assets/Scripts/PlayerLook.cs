@@ -40,6 +40,7 @@ public class PlayerLook : MonoBehaviour
     private void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Screen.lockCursor = true;
     }
 
     private void Update()
