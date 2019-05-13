@@ -166,11 +166,15 @@ public class PlayerMove : MonoBehaviour
         if (isCrouching) // Transform to crouching height
         {
             cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(cameraMain.transform.localPosition.y, crouchHeight, Time.deltaTime * crouchSpeedMult), 0);
+            charController.height = Mathf.Lerp( charController.height, 1f, 5.0f * Time.deltaTime );
+            //charController.transform.position += new Vector3(0, (( charController.height - 2f ) * 0.5f), 0); 
         }
 
         else // Transform to standing height
         {
             cameraMain.transform.localPosition = new Vector3(0, Mathf.Lerp(cameraMain.transform.localPosition.y, controllerHeight, Time.deltaTime * crouchSpeedMult), 0);
+            charController.height = Mathf.Lerp( charController.height, 2f, 5.0f * Time.deltaTime );
+            //charController.transform.position += new Vector3(0, (( charController.height - 1f ) * 0.5f), 0); 
         }
     }
 
@@ -182,7 +186,6 @@ public class PlayerMove : MonoBehaviour
         {
             isCrouching = !isCrouching;
         }
-
         SetLocalCameraY();
     }
 
