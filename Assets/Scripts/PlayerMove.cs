@@ -6,9 +6,7 @@ using TMPro;
 
 public class PlayerMove : MonoBehaviour
 {
-    //Declare variables and set variables.
-
-    private CharacterController charController;
+    #region Variables
 
     //Movement variables.
     [Header("Inputs")]
@@ -46,18 +44,23 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private float fovSpeed;
 
+
+    private CharacterController charController;
     public bool isCrouching { get; private set; }
     public bool isRunning { get; private set; }
     private Vector3 lastVector;
 
+
+
     private delegate void CrouchModeDelegate();
     private CrouchModeDelegate setCrouch;
 
-    
+    #endregion
+
+
     private void Awake()
     {
         charController = GetComponent<CharacterController>();
-
         if (HoldKey) // Hold mode
         {
             setCrouch = CrouchInputHold;
@@ -66,13 +69,11 @@ public class PlayerMove : MonoBehaviour
         {
             setCrouch = CrouchInputToggle;
         }
-
     }
 
     private void Update()
     {
         PlayerMovement();
-        //FOV();
     }
 
     private void PlayerMovement()
@@ -86,6 +87,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 forwardMovement = transform.forward * vertInput;
         Vector3 rightMovement = transform.right * horizInput;
 
+        // Pushes our character controller down so it'll be grounded.
         if ((vertInput != 0 || horizInput != 0) && onSlope())
         {
             charController.Move(Vector3.down * charController.height / 2 * slopeForce * Time.deltaTime);
@@ -126,6 +128,7 @@ public class PlayerMove : MonoBehaviour
                 
     }
 
+    // On Hold
     private void FOV()
     {
         Vector3 charSpeedVec = (charController.transform.position - lastVector) * Time.deltaTime;//charController.velocity;
@@ -133,21 +136,6 @@ public class PlayerMove : MonoBehaviour
         float charSpeed = charSpeedVec.magnitude * fovSpeed;
 
         cameraMain.fieldOfView = 60.0f * scale(0.0f, 10.0f, 1.0f, 1.2f, charSpeed);
-/* 
-        if (charSpeed <= 6)
-        {
-            cameraMain.fieldOfView = 60.0f;
-        }
-        else if (charSpeed >= 9)
-        {
-            cameraMain.fieldOfView = 80.0f;
-        }
-        else
-        {
-            cameraMain.fieldOfView = 60.0f + (20.0f / 3.0f * (charSpeed - 6.0f));
-        }
-
-        */
     }
 
     public float scale(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue){
@@ -240,7 +228,6 @@ public class PlayerMove : MonoBehaviour
 
         } while (!charController.isGrounded && charController.collisionFlags != CollisionFlags.Above);
 
-
         charController.slopeLimit = 45.0f;
         isJumping = false;
 
@@ -253,9 +240,7 @@ public class PlayerMove : MonoBehaviour
         {
             return false;
         }
-
         RaycastHit hit;
-
         if (Physics.Raycast(transform.position, Vector3.down, out hit, charController.height / 2 * slopeForceRaylength))
         {
             if (hit.normal != Vector3.up)

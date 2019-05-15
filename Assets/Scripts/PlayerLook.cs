@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
+    // Public Variables
+
     [Header("Input Variables")]
     [Space(1)]
     [Tooltip("Rotate on the X Axis")]
@@ -23,24 +25,19 @@ public class PlayerLook : MonoBehaviour
     [Tooltip("Place the Player here.")]
     [SerializeField] private Transform playerBody;
 
+    // Private Variables
+
     private float currentYRotation;
     private float currentXRotation;
     private float yRotationV;
     private float xRotationV;
-
-
     private float xAxisClamp;
 
     private void Awake()
     {
-        LockCursor();
-        xAxisClamp = 0.0f;
-    }
-
-    private void LockCursor()
-    {
         Cursor.lockState = CursorLockMode.Locked;
         Screen.lockCursor = true;
+        xAxisClamp = 0.0f;
     }
 
     private void Update()

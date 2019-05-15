@@ -21,7 +21,9 @@ public class DoorScript : MonoBehaviour
     //Private variables
     private bool openDoor = false;  
     private bool doorAnimating;
-    private Vector3 endPos = new Vector3(0,0,0);
+    private Vector3 DoorAPos = new Vector3(0, 0, 0);
+    private Vector3 DoorBPos = new Vector3(0, 0, 0);
+    private Vector3 endPos = new Vector3(0, 0, 0);
     private Transform DoorA;
     private Transform DoorB;
 
@@ -30,6 +32,9 @@ public class DoorScript : MonoBehaviour
         SetAxis(DoorA_GO);
         DoorA = DoorA_GO.GetComponent<Transform>();
         DoorB = DoorB_GO.GetComponent<Transform>();
+
+        DoorAPos = DoorA.position;
+        DoorBPos = DoorB.position;
     }
     void Update()
     {
@@ -74,10 +79,9 @@ public class DoorScript : MonoBehaviour
         }
     }
 
-    IEnumerator MoveDoors (Transform door1, Transform door2, Vector3 dest) 
+    IEnumerator MoveDoors(Transform door1, Transform door2, Vector3 dest) 
     {
         doorAnimating = true;
-		float t = 0f;
         Vector3 dest1 = door1.position + dest;
         Vector3 dest2 = door2.position - dest;
         float dist = Vector3.Distance(door1.position, dest1);
