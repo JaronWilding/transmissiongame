@@ -1,0 +1,163 @@
+fileFormatVersion: 2
+guid: a099ec3447ed44446bd4529997a44be4
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Base
+    100002: Door
+    100004: Door_Direction
+    100006: Door_Direction_2
+    100008: Door_lock_base
+    100010: Door_lock_base 1
+    100012: Door_lock_high_poly
+    100014: Door_lock_high_poly1
+    100016: Door_slide
+    100018: //RootNode
+    100020: Eye_hole
+    100022: Num_pad
+    100024: Num_pad 1
+    100026: polySurface1
+    100028: polySurface2
+    100030: Sign
+    100032: Sign_2
+    400000: Base
+    400002: Door
+    400004: Door_Direction
+    400006: Door_Direction_2
+    400008: Door_lock_base
+    400010: Door_lock_base 1
+    400012: Door_lock_high_poly
+    400014: Door_lock_high_poly1
+    400016: Door_slide
+    400018: //RootNode
+    400020: Eye_hole
+    400022: Num_pad
+    400024: Num_pad 1
+    400026: polySurface1
+    400028: polySurface2
+    400030: Sign
+    400032: Sign_2
+    2100000: lambert1
+    2100002: lambert2
+    2300000: Base
+    2300002: Door
+    2300004: Door_Direction
+    2300006: Door_Direction_2
+    2300008: Door_lock_base
+    2300010: Door_lock_base 1
+    2300012: Num_pad
+    2300014: Num_pad 1
+    2300016: polySurface1
+    2300018: polySurface2
+    2300020: Sign
+    2300022: Sign_2
+    3300000: Base
+    3300002: Door
+    3300004: Door_Direction
+    3300006: Door_Direction_2
+    3300008: Door_lock_base
+    3300010: Door_lock_base 1
+    3300012: Num_pad
+    3300014: Num_pad 1
+    3300016: polySurface1
+    3300018: polySurface2
+    3300020: Sign
+    3300022: Sign_2
+    4300000: Base
+    4300002: Door_Direction_2
+    4300004: Door_Direction
+    4300006: polySurface1
+    4300008: polySurface2
+    4300010: Sign_2
+    4300012: Door_lock_base
+    4300014: Num_pad
+    4300016: Door_lock_base
+    4300018: Num_pad
+    4300020: Sign
+    4300022: Door
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
