@@ -35,6 +35,8 @@ public class DoorScript : MonoBehaviour
 
         DoorAPos = DoorA.position;
         DoorBPos = DoorB.position;
+
+
     }
     void Update()
     {
@@ -57,6 +59,13 @@ public class DoorScript : MonoBehaviour
         }
         endPos[axis] = moveAmount;
     }
+
+    void OnTriggerEnter(Collider col)
+    {
+    //if (col.GetComponent<SCRIPT NAME>())
+        Debug.Log("Entered");
+    }
+
 
 
     private void DoorCheck()
