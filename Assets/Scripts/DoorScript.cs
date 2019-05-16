@@ -21,8 +21,6 @@ public class DoorScript : MonoBehaviour
     //Private variables
     private bool openDoor = false;  
     private bool doorAnimating;
-    private Vector3 DoorAPos = new Vector3(0, 0, 0);
-    private Vector3 DoorBPos = new Vector3(0, 0, 0);
     private Vector3 endPos = new Vector3(0, 0, 0);
     private Transform DoorA;
     private Transform DoorB;
@@ -32,11 +30,6 @@ public class DoorScript : MonoBehaviour
         SetAxis(DoorA_GO);
         DoorA = DoorA_GO.GetComponent<Transform>();
         DoorB = DoorB_GO.GetComponent<Transform>();
-
-        DoorAPos = DoorA.position;
-        DoorBPos = DoorB.position;
-
-
     }
     void Update()
     {
@@ -60,23 +53,31 @@ public class DoorScript : MonoBehaviour
         endPos[axis] = moveAmount;
     }
 
-    void OnTriggerEnter(Collider col)
+
+    void OnTriggerStay(Collider col)
     {
-    //if (col.GetComponent<SCRIPT NAME>())
-        Debug.Log("Entered");
-    }
-
-
-
-    private void DoorCheck()
-    {
-        if (Vector3.Distance(player.position, this.transform.position) < range)
+        if(col.tag == "GameController" && Input.GetKeyDown(KeyCode.F))
         {
             if (!doorAnimating && openDoor == false)
             {
                 openDoor = true;
 		        StartCoroutine(MoveDoors(DoorA, DoorB, endPos));
             }
+            else if(!doorAnimating && openDoor)
+            {
+                StartCoroutine(MoveDoors(DoorA, DoorB, -endPos));
+                openDoor = false;
+            }
+            
+        }
+       
+    }
+
+    private void DoorCheck()
+    {
+        if (Vector3.Distance(player.position, this.transform.position) < range)
+        {
+            //Do nothing sorry
         }
         else if (openDoor)
         {
@@ -100,6 +101,9 @@ public class DoorScript : MonoBehaviour
             dist = Vector3.Distance(door1.position, dest1);
             yield return null;
         }
+        door1.position = dest1;
+        door2.position = dest2;
         doorAnimating = false;
 	}
+
 }

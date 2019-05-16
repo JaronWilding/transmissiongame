@@ -11,7 +11,7 @@ public class Grates : MonoBehaviour
     private bool timerOn = false;
     private float timer = 1.0f;
 
-    void Start()
+    void Awake()
     {
         myCollider = GetComponent<Collider>();
         wallCollision = GameObject.FindWithTag("Walls").GetComponent<Collider>();
