@@ -20,7 +20,7 @@ public class Raycastonoff : MonoBehaviour
     {
 
     }
-    private void OnTriggerEnter(Collider col)
+    private void OnTriggerStay(Collider col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
