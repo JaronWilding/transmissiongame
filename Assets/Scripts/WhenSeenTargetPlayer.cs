@@ -19,7 +19,7 @@ public class WhenSeenTargetPlayer : MonoBehaviour
         myAgent = GetComponent<NavMeshAgent>();
         myAgent.speed = moveSpeed;
         myAgent.autoBraking = true;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("GameController").transform;
 
     }
 
