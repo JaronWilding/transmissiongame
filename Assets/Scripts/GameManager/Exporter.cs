@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
-using UnityEditor.SceneManagement;
-using UnityEditor;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System;
-
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+using UnityEditor;
 struct ObjMaterial
+
 {
 	public string name;
 	public string textureName;
@@ -338,5 +340,6 @@ public class EditorObjExporter : ScriptableObject
 			EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
 	}	
     
-    }
+}
+#endif
 	
