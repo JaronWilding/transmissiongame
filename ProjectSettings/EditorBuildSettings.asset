@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Prototypes/Old Scene/Menus/MainMenu0001.unity
     guid: 5aa515a8dee446842bd1c35e9fa4394e
   - enabled: 1
-    path: Assets/Scenes/Prototypes/TestGame.unity
+    path: Assets/Scenes/Prototypes/Old Scene/TestScene/PlayTest0001.unity
     guid: 094bb76b07f8dcc44b58dd3e9c6faecb
   m_configObjects: {}

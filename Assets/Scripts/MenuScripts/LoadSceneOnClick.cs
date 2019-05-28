@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSceneOnClickMainMenuOnly : MonoBehaviour
+public class LoadSceneOnClick : MonoBehaviour
 {
 
 
