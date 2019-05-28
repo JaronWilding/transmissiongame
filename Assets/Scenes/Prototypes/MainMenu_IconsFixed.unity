@@ -830,7 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32acaf1f3cd444946b5f39141aae0df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 162782974}
   selectedObject: {fileID: 3477332259963278677}
 --- !u!222 &3477332259209175614
 CanvasRenderer:
@@ -1363,7 +1363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32acaf1f3cd444946b5f39141aae0df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 162782974}
   selectedObject: {fileID: 3477332259957666979}
 --- !u!114 &3477332259806288344
 MonoBehaviour:
@@ -2475,7 +2475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32acaf1f3cd444946b5f39141aae0df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 162782974}
   selectedObject: {fileID: 3477332260830251795}
 --- !u!114 &3477332260849272680
 MonoBehaviour:

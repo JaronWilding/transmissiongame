@@ -23,9 +23,8 @@ public class PlayerControllerWithLean : MonoBehaviour
     [SerializeField] private KeyCode runKey = KeyCode.LeftShift;
 
     //Camera rotate
-
-    public Transform _Pivot;
-    float curAngle = -4f;
+    public Transform pivot;
+    float curAngle = 0f;
     [SerializeField] private float rotateSpeed = 100f;
     [SerializeField] private float maxAngle = 20f;
 
@@ -51,7 +50,7 @@ public class PlayerControllerWithLean : MonoBehaviour
     [SerializeField] private Camera cameraMain;
     [SerializeField] private bool HoldKey = false;
 
-    [SerializeField] private float fovSpeed;
+    [SerializeField] private float fovSpeed = 1; //
 
 
     private CharacterController charController;
@@ -69,7 +68,7 @@ public class PlayerControllerWithLean : MonoBehaviour
 
     private void Awake()
     {
-        if (_Pivot == null && transform.parent != null) _Pivot = transform.parent;
+        if (pivot == null && transform.parent != null) pivot = transform.parent;
 
         charController = GetComponent<CharacterController>();
         if (HoldKey) // Hold mode
@@ -87,26 +86,26 @@ public class PlayerControllerWithLean : MonoBehaviour
 
     private void Update()
     {
-        
 
-            // lean left
-            if (Input.GetKey(KeyCode.Q))
-            {
-                curAngle = Mathf.MoveTowardsAngle(curAngle, maxAngle, rotateSpeed * Time.deltaTime);
-            }
-            // lean right
-            else if (Input.GetKey(KeyCode.E))
-            {
-                curAngle = Mathf.MoveTowardsAngle(curAngle, -maxAngle, rotateSpeed * Time.deltaTime);
-            }
-            // reset lean
-            else
-            {
-                curAngle = Mathf.MoveTowardsAngle(curAngle, 0f, rotateSpeed * Time.deltaTime);
-            }
 
-            _Pivot.transform.localRotation = Quaternion.AngleAxis(curAngle, Vector3.forward);
-        
+        // lean left
+        if (Input.GetKey(KeyCode.Q))
+        {
+            curAngle = Mathf.MoveTowardsAngle(curAngle, maxAngle, rotateSpeed * Time.deltaTime);
+        }
+        // lean right
+        else if (Input.GetKey(KeyCode.E))
+        {
+            curAngle = Mathf.MoveTowardsAngle(curAngle, -maxAngle, rotateSpeed * Time.deltaTime);
+        }
+        // reset lean
+        else
+        {
+            curAngle = Mathf.MoveTowardsAngle(curAngle, 0f, rotateSpeed * Time.deltaTime);
+        }
+
+        pivot.transform.localRotation = Quaternion.AngleAxis(curAngle, Vector3.forward);
+
 
 
         PlayerMovement();
@@ -169,7 +168,7 @@ public class PlayerControllerWithLean : MonoBehaviour
     private void FOV()
     {
         Vector3 charSpeedVec = (charController.transform.position - lastVector) * Time.deltaTime;//charController.velocity;
-        charSpeedVec.y = 0.0f;
+        charSpeedVec.y = 5.0f;
         float charSpeed = charSpeedVec.magnitude * fovSpeed;
 
         cameraMain.fieldOfView = 60.0f * scale(0.0f, 10.0f, 1.0f, 1.2f, charSpeed);

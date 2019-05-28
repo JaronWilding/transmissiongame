@@ -1045,7 +1045,7 @@ PrefabInstance:
     - target: {fileID: 2215277414203219298, guid: b6bb130e2d62cd14c9cfc2fe31e6a3a8,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7850796039714844032, guid: b6bb130e2d62cd14c9cfc2fe31e6a3a8,
         type: 3}
@@ -1105,7 +1105,7 @@ PrefabInstance:
     - target: {fileID: 2797584739935233307, guid: b6bb130e2d62cd14c9cfc2fe31e6a3a8,
         type: 3}
       propertyPath: speed
-      value: 1000
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6bb130e2d62cd14c9cfc2fe31e6a3a8, type: 3}
@@ -1174,6 +1174,21 @@ PrefabInstance:
     - target: {fileID: 8025112659838576370, guid: 3990b24a7d8aa654a8cb674f23fa4098,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 115262965873552097, guid: 3990b24a7d8aa654a8cb674f23fa4098,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025112659838576369, guid: 3990b24a7d8aa654a8cb674f23fa4098,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025112659453629982, guid: 3990b24a7d8aa654a8cb674f23fa4098,
+        type: 3}
+      propertyPath: lookSmoothDamp
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

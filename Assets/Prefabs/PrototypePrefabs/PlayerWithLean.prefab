@@ -129,7 +129,7 @@ MonoBehaviour:
   mouseXInputName: Mouse X
   mouseYInputName: Mouse Y
   mouseSensitivity: 150
-  lookSmoothDamp: 0.1
+  lookSmoothDamp: 0.0000001
   playerBody: {fileID: 8025112659838576370}
 --- !u!1 &8025112659838576368
 GameObject:
@@ -216,7 +216,7 @@ MonoBehaviour:
   runSpeed: 9
   runBuildUpSpeed: 2
   runKey: 304
-  _Pivot: {fileID: 4381186771009562682}
+  pivot: {fileID: 4381186771009562682}
   rotateSpeed: 100
   maxAngle: 45
   jumpFallOff:
