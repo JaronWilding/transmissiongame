@@ -21,9 +21,15 @@ public class PlayerLook : MonoBehaviour
     [Tooltip("The look-smoothing component")]
     [SerializeField] private float lookSmoothDamp = 0.1f;
 
-    [Header("The Player Body")]
+    [Header("The Player")]
     [Tooltip("Place the Player here.")]
-    [SerializeField] private Transform playerBody;
+    [SerializeField] private Transform player;
+
+    //Leaning Code
+    public Transform bodyPivot;
+    float curAngle = 0f;
+    [SerializeField] private float rotateSpeed = 100f;
+    [SerializeField] private float maxAngle = 20f;
 
     // Private Variables
 
@@ -38,10 +44,27 @@ public class PlayerLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Screen.lockCursor = true;
         xAxisClamp = 0.0f;
+        if (bodyPivot == null && transform.parent != null) bodyPivot = transform.parent;
     }
 
     private void Update()
     {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            curAngle = Mathf.MoveTowardsAngle(curAngle, maxAngle, rotateSpeed * Time.deltaTime);
+        }
+        // lean right
+        else if (Input.GetKey(KeyCode.E))
+        {
+            curAngle = Mathf.MoveTowardsAngle(curAngle, -maxAngle, rotateSpeed * Time.deltaTime);
+        }
+        // reset lean
+        else
+        {
+            curAngle = Mathf.MoveTowardsAngle(curAngle, 0f, rotateSpeed * Time.deltaTime);
+        }
+
+        bodyPivot.transform.localRotation = Quaternion.AngleAxis(curAngle, Vector3.forward);
         //Every frame go to the Cam Rotation follow mouse
         CameraRotation();
     }
@@ -70,7 +93,7 @@ public class PlayerLook : MonoBehaviour
         currentYRotation = Mathf.SmoothDamp(currentYRotation, mouseY, ref yRotationV, lookSmoothDamp);
 
         transform.Rotate(Vector3.left * currentYRotation); //Camera's Y axis.
-        playerBody.Rotate(Vector3.up * currentXRotation); //Camera's X axis. This is attached to Player, so we rotate players body.
+        player.Rotate(Vector3.up * currentXRotation); //Camera's X axis. This is attached to Player, so we rotate players body.
     }
 
     private void ClampXAxisRotationToValue(float value)
