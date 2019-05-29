@@ -166,7 +166,7 @@ MonoBehaviour:
   slopeForce: 5
   slopeForceRaylength: 1.5
   controllerHeight: 0
-  crouchHeight: 0.1
+  crouchHeight: -0.6
   crouchSpeedMult: 5
   crouchKey: 99
   cameraMain: {fileID: 1313074497}
