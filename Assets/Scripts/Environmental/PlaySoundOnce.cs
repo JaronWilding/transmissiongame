@@ -6,7 +6,7 @@ public class PlaySoundOnce : MonoBehaviour
 {
     public AudioClip audioLog;
     AudioSource audioSource;
-    private bool hasPlayed = false;
+   //private bool hasPlayed = false;
     private BoxCollider boxCol;
     
 
