@@ -71,12 +71,12 @@ public class PlayerLook : MonoBehaviour
     {
         if (Input.GetKey(leanRight))
         {
-            curAngle = Mathf.MoveTowardsAngle(curAngle, maxAngle, rotateSpeed * Time.deltaTime);
+            curAngle = Mathf.MoveTowardsAngle(curAngle, -maxAngle, rotateSpeed * Time.deltaTime);
         }
         // lean right
         else if (Input.GetKey(leanLeft))
         {
-            curAngle = Mathf.MoveTowardsAngle(curAngle, -maxAngle, rotateSpeed * Time.deltaTime);
+            curAngle = Mathf.MoveTowardsAngle(curAngle, maxAngle, rotateSpeed * Time.deltaTime);
         }
         // reset lean
         else
