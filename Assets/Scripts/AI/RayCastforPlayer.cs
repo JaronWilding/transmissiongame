@@ -11,6 +11,9 @@ public class RayCastforPlayer : MonoBehaviour
     public GameObject TriggerforRaycast;
     public RandomPatrolWaypoints RandomPatrolWaypoints;
 
+    public AudioClip zombGrumble;
+    private AudioSource audioSrc;
+
     private SphereCollider col;
 
     public GameObject Player;
@@ -18,6 +21,7 @@ public class RayCastforPlayer : MonoBehaviour
     private void Awake()
     {
         col = GetComponent<SphereCollider>();
+        audioSrc = GetComponent<AudioSource>();
     }
 
 
@@ -45,6 +49,7 @@ public class RayCastforPlayer : MonoBehaviour
                     if (hit.collider.gameObject == Player)
                     {
                         Debug.Log("hit");
+                        audioSrc.PlayOneShot(zombGrumble,1F);
                         whenSeenTargetPlayer.enabled = true;
                         TriggerforRaycast.SetActive(false);
                         rayCast.enabled = false;
