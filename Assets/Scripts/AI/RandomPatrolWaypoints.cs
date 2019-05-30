@@ -15,8 +15,8 @@ public class RandomPatrolWaypoints : MonoBehaviour
  //   public RunToExit runToExit;
     
 
-    public float escapeTime = 0f;
-    public float timerRange;
+  //  public float escapeTime = 0f;
+  //  public float timerRange;
 
 
 
@@ -34,10 +34,10 @@ public class RandomPatrolWaypoints : MonoBehaviour
         player = GameObject.FindGameObjectsWithTag("Player");
         waypointInd = Random.Range(0, waypoints.Length);
 
-        StartCoroutine("ExitTimer");
+     //   StartCoroutine("ExitTimer");
 
 
-        timerRange = Random.Range(60.0f, 90.0f);
+      //  timerRange = Random.Range(60.0f, 90.0f);
     }
 
     // Update is called once per frame
@@ -47,9 +47,9 @@ public class RandomPatrolWaypoints : MonoBehaviour
         {
             NextPoint();
         }
-         if (escapeTime >= timerRange)
+      //   if (escapeTime >= timerRange)
         {
-            StopCoroutine("ExitTimer");
+      //      StopCoroutine("ExitTimer");
    //         runToExit.enabled = true;
             
         }
@@ -71,15 +71,15 @@ public class RandomPatrolWaypoints : MonoBehaviour
        
     }
 
-    IEnumerator ExitTimer()
-{
-    while (true)
-    {
-        yield return new WaitForSeconds(1);
-        escapeTime++;
+   // IEnumerator ExitTimer()
+//{
+  //  while (true)
+  //  {
+   //     yield return new WaitForSeconds(1);
+    //    escapeTime++;
 
-    }
-}
+ //   }
+//}
 
 }
 

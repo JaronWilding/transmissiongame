@@ -39,6 +39,7 @@ public class PlayerPause : MonoBehaviour
         PlayerMove.enabled = true;
         gameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Pause()
@@ -49,6 +50,7 @@ public class PlayerPause : MonoBehaviour
         PlayerMove.enabled = false;
         gameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
 }

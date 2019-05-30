@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Prototypes/MainMenu_IconsFixed.unity
-    guid: 0176d238d33d910458bb728c4fae520b
+    path: Assets/Scenes/Prototypes/MainMenu_FINALFREEZE_01.unity
+    guid: 6bbc51685ef25a64bae44f41327cdfbc
   - enabled: 1
-    path: Assets/Scenes/Prototypes/TestScene_PauseScreenAdded.unity
-    guid: cf4bd19da97fb294e97b0effb9f6ae7f
+    path: Assets/Scenes/Prototypes/PrototypeScene_FINALFREEZE_01.unity
+    guid: af1e50d9a1faa15448119e1a6437952f
   m_configObjects: {}

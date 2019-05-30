@@ -18,6 +18,7 @@ public class OnRun : MonoBehaviour
         pLook.enabled = false;
         pMove.enabled = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; //hides mouse cursor during main build
     }
 
     // Update is called once per frame
