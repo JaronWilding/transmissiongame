@@ -12,6 +12,10 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] private string mouseXInputName = "Mouse X";
     [Tooltip("Rotate on the Y Axis")]
     [SerializeField] private string mouseYInputName = "Mouse Y";
+    [Tooltip("Lean Right on key")]
+    [SerializeField] private KeyCode leanRight = KeyCode.E;
+    [Tooltip("Lean Left on key")]
+    [SerializeField] private KeyCode leanLeft = KeyCode.Q;
 
     [Header("Look Properties")]
     [Space(1)]
@@ -21,40 +25,56 @@ public class PlayerLook : MonoBehaviour
     [Tooltip("The look-smoothing component")]
     [SerializeField] private float lookSmoothDamp = 0.1f;
 
-    [Header("The Player")]
+    [Header("The Player transforms")]
     [Tooltip("Place the Player here.")]
     [SerializeField] private Transform player;
-
-    //Leaning Code
-    public Transform bodyPivot;
-    float curAngle = 0f;
+    [Tooltip("Place the Chest Pivot here.")]
+    [SerializeField] public Transform chestPivot;
+    
     [SerializeField] private float rotateSpeed = 100f;
     [SerializeField] private float maxAngle = 20f;
 
     // Private Variables
-
-    private float currentYRotation;
+    public static float currentYRotation;
     private float currentXRotation;
     private float yRotationV;
     private float xRotationV;
     private float xAxisClamp;
 
+    private float curAngle = 0f;
+
+    public static bool isPaused = false;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Screen.lockCursor = true;
         xAxisClamp = 0.0f;
-        if (bodyPivot == null && transform.parent != null) bodyPivot = transform.parent;
+
+        if (chestPivot == null && transform.parent != null)
+        {
+            chestPivot = transform.parent;
+        }
     }
+    
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (!isPaused)
+        {
+            CameraLean();
+            CameraRotation();
+        }
+        
+    }
+
+    private void CameraLean()
+    {
+        if (Input.GetKey(leanRight))
         {
             curAngle = Mathf.MoveTowardsAngle(curAngle, maxAngle, rotateSpeed * Time.deltaTime);
         }
         // lean right
-        else if (Input.GetKey(KeyCode.E))
+        else if (Input.GetKey(leanLeft))
         {
             curAngle = Mathf.MoveTowardsAngle(curAngle, -maxAngle, rotateSpeed * Time.deltaTime);
         }
@@ -64,9 +84,7 @@ public class PlayerLook : MonoBehaviour
             curAngle = Mathf.MoveTowardsAngle(curAngle, 0f, rotateSpeed * Time.deltaTime);
         }
 
-        bodyPivot.transform.localRotation = Quaternion.AngleAxis(curAngle, Vector3.forward);
-        //Every frame go to the Cam Rotation follow mouse
-        CameraRotation();
+        chestPivot.transform.localRotation = Quaternion.AngleAxis(curAngle, Vector3.forward);
     }
 
     private void CameraRotation()

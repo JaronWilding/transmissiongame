@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlayerPause : MonoBehaviour
 {
+    //Public Variables
+    [Header("Jumping Variables")]
+    [Tooltip("The Pause Menu Canvas")]
+    [SerializeField] private GameObject gamePauseMenu;
+    [Tooltip("Disables and Re-Enables PlayerLook when Pausing")]
+    [SerializeField] private PlayerLook playerLookScript;
+    [Tooltip("Disables and Re-Enables PlayerMove when Pausing")]
+    [SerializeField] private PlayerMove PlayerMove;
+
     public static bool gameIsPaused = false;
-    public GameObject gamePauseMenu;
-
-
 
     private void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (gameIsPaused)
@@ -26,19 +30,25 @@ public class PlayerPause : MonoBehaviour
         }
     }
 
-    public void Resume()
+    private void Resume()
 
     {
         gamePauseMenu.SetActive(false);
-        Time.timeScale = 1.0f;
+        Time.timeScale = 1;
+        playerLookScript.enabled = true;
+        PlayerMove.enabled = true;
         gameIsPaused = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Pause()
+    private void Pause()
     {
         gamePauseMenu.SetActive(true);
-        Time.timeScale = 0.0f;
+        Time.timeScale = 0;
+        playerLookScript.enabled = false;
+        PlayerMove.enabled = false;
         gameIsPaused = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
 }

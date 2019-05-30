@@ -5,18 +5,19 @@ using UnityEngine;
 public class OnRun : MonoBehaviour
 {
 
-    public PlayerLook ascript;
-    public PlayerMove bscript;
+    private PlayerLook pLook;
+    private PlayerMove pMove;
+    private OnRun onRunScript;
     private float timer = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
-        ascript = GetComponentInChildren<PlayerLook>();
-        bscript = GetComponent<PlayerMove>();
-        ascript.enabled = false;
-        bscript.enabled = false;
+        pLook = GetComponentInChildren<PlayerLook>();
+        pMove = GetComponent<PlayerMove>();
+        onRunScript = GetComponent<OnRun>();
+        pLook.enabled = false;
+        pMove.enabled = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Screen.lockCursor = true;
     }
 
     // Update is called once per frame
@@ -25,8 +26,10 @@ public class OnRun : MonoBehaviour
         timer -= Time.deltaTime;
         if(timer < 0f)
         {
-            ascript.enabled = true;
-            bscript.enabled = true;
+            pLook.enabled = true;
+            pMove.enabled = true;
+            onRunScript.enabled = false;
         }
     }
+
 }

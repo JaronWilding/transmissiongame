@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 6022429076398188791}
   - component: {fileID: 6022429076398188789}
   - component: {fileID: 6022429076398188790}
-  - component: {fileID: 6022429076398188788}
+  - component: {fileID: 62479486200133166}
   m_Layer: 0
   m_Name: Player_Camera
   m_TagString: MainCamera
@@ -234,7 +234,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6022429076398188792}
   m_Enabled: 1
---- !u!114 &6022429076398188788
+--- !u!114 &62479486200133166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,10 +248,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseXInputName: Mouse X
   mouseYInputName: Mouse Y
+  leanRight: 101
+  leanLeft: 113
   mouseSensitivity: 150
   lookSmoothDamp: 0
   player: {fileID: 6022429076246026264}
-  bodyPivot: {fileID: 804100857384625242}
+  chestPivot: {fileID: 804100857384625242}
   rotateSpeed: 100
   maxAngle: 30
 --- !u!1 &7384491059326403333
