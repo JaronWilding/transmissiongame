@@ -11,7 +11,7 @@ public class RandomPatrolWaypoints : MonoBehaviour
     public float patrolSpeed = 7f;
     private int waypointInd;
     public GameObject[] waypoints;
-    public GameObject[] player;
+   // public GameObject[] player;
  //   public RunToExit runToExit;
     
 
@@ -31,7 +31,7 @@ public class RandomPatrolWaypoints : MonoBehaviour
         myAgent.autoBraking = true;
 
         waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
-        player = GameObject.FindGameObjectsWithTag("Player");
+      //  player = GameObject.FindGameObjectsWithTag("Player");
         waypointInd = Random.Range(0, waypoints.Length);
 
      //   StartCoroutine("ExitTimer");
